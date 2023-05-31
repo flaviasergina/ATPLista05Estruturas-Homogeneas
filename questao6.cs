@@ -10,47 +10,49 @@ namespace Lista5Atp
     {
         public static void rodar()
         {
-            Random random = new Random();
-            int[] numerosSorteados = new int[3];
-            for (int i = 0; i < 3; i++)
+            int[] temperaturas = new int[31];
+            int somaTemperaturas = 0;
 
+            for (int i = 0; i < temperaturas.Length; i++)
             {
-                numerosSorteados[i] = random.Next(10, 51);
+                Console.Write($"Digite a temperatura do dia {i + 1}: ");
+                temperaturas[i] = Convert.ToInt32(Console.ReadLine());
+                somaTemperaturas += temperaturas[i];
             }
 
-            return numerosSorteados;
-        }
+            int menorTemperatura = temperaturas[0];
+            int maiorTemperatura = temperaturas[0];
 
-        static void TentarAcertarNumero(int[] numerosSorteados)
-        {
-            while (true)
+            foreach (int temperatura in temperaturas)
             {
-                Console.Write("Digite um número entre 10 e 50: ");
-                int tentativa;
-                if (int.TryParse(Console.ReadLine(), out tentativa))
+                if (temperatura < menorTemperatura)
                 {
-                    if (Array.IndexOf(numerosSorteados, tentativa) != -1)
-                    {
-                        Console.WriteLine("Parabéns! Você acertou um número sorteado.");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Tente novamente.");
-                    }
+                    menorTemperatura = temperatura;
                 }
-                else
+
+                if (temperatura > maiorTemperatura)
                 {
-                    Console.WriteLine("Entrada inválida. Tente novamente.");
+                    maiorTemperatura = temperatura;
                 }
             }
-        }
 
-        static void Main()
-        {
-            int[] numerosSorteados = SortearNumeros();
-            Console.WriteLine("Números sorteados: " + string.Join(", ", numerosSorteados));
-            TentarAcertarNumero(numerosSorteados);
+            double temperaturaMedia = (double)somaTemperaturas / temperaturas.Length;
+            int diasInferioresMedia = 0;
+
+            foreach (int temperatura in temperaturas)
+            {
+                if (temperatura < temperaturaMedia)
+                {
+                    diasInferioresMedia++;
+                }
+            }
+
+            Console.WriteLine($"Menor temperatura: {menorTemperatura}°C");
+            Console.WriteLine($"Maior temperatura: {maiorTemperatura}°C");
+            Console.WriteLine($"Temperatura média: {temperaturaMedia:F2}°C");
+            Console.WriteLine($"Número de dias com temperatura inferior à média: {diasInferioresMedia}");
+
+            Console.ReadLine();
         }
     }
 }
