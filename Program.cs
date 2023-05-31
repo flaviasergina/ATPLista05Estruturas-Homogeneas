@@ -60,3 +60,17 @@ switch (resposta)
         questao8.rodar();
         break;
 }
+
+switch (resposta)
+{
+    case 9:
+        questao8.rodar();
+        break;
+}
+
+switch (resposta)
+{
+    case 10:
+        questao8.rodar();
+        break;
+}
