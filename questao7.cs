@@ -10,49 +10,117 @@ namespace Lista5Atp
     {
         public static void rodar()
         {
-            int[] temperaturas = new int[31];
-            int somaTemperaturas = 0;
+            int[,] matriz = new int[5, 5];
 
-            for (int i = 0; i < temperaturas.Length; i++)
-            {
-                Console.Write($"Digite a temperatura do dia {i + 1}: ");
-                temperaturas[i] = Convert.ToInt32(Console.ReadLine());
-                somaTemperaturas += temperaturas[i];
-            }
+            PreencherMatriz(matriz);
+            Console.WriteLine("Matriz preenchida:");
+            ImprimirMatriz(matriz);
 
-            int menorTemperatura = temperaturas[0];
-            int maiorTemperatura = temperaturas[0];
+            int somaLinha4 = CalcularSomaLinha4(matriz);
+            Console.WriteLine("Soma da linha 4: " + somaLinha4);
 
-            foreach (int temperatura in temperaturas)
-            {
-                if (temperatura < menorTemperatura)
-                {
-                    menorTemperatura = temperatura;
-                }
+            int somaColuna2 = CalcularSomaColuna2(matriz);
+            Console.WriteLine("Soma da coluna 2: " + somaColuna2);
 
-                if (temperatura > maiorTemperatura)
-                {
-                    maiorTemperatura = temperatura;
-                }
-            }
+            int somaDiagonalPrincipal = CalcularSomaDiagonalPrincipal(matriz);
+            Console.WriteLine("Soma da diagonal principal: " + somaDiagonalPrincipal);
 
-            double temperaturaMedia = (double)somaTemperaturas / temperaturas.Length;
-            int diasInferioresMedia = 0;
+            int somaDiagonalSecundaria = CalcularSomaDiagonalSecundaria(matriz);
+            Console.WriteLine("Soma da diagonal secundária: " + somaDiagonalSecundaria);
 
-            foreach (int temperatura in temperaturas)
-            {
-                if (temperatura < temperaturaMedia)
-                {
-                    diasInferioresMedia++;
-                }
-            }
-
-            Console.WriteLine($"Menor temperatura: {menorTemperatura}°C");
-            Console.WriteLine($"Maior temperatura: {maiorTemperatura}°C");
-            Console.WriteLine($"Temperatura média: {temperaturaMedia:F2}°C");
-            Console.WriteLine($"Número de dias com temperatura inferior à média: {diasInferioresMedia}");
+            int somaTotal = CalcularSomaTotal(matriz);
+            Console.WriteLine("Soma total da matriz: " + somaTotal);
 
             Console.ReadLine();
+        }
+
+        static void PreencherMatriz(int[,] matriz)
+        {
+            Random random = new Random();
+
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    matriz[i, j] = random.Next(1, 10);
+                }
+            }
+        }
+
+        static void ImprimirMatriz(int[,] matriz)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    Console.Write(matriz[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static int CalcularSomaLinha4(int[,] matriz)
+        {
+            int soma = 0;
+
+            for (int j = 0; j < matriz.GetLength(1); j++)
+            {
+                soma += matriz[3, j];
+            }
+
+            return soma;
+        }
+
+        static int CalcularSomaColuna2(int[,] matriz)
+        {
+            int soma = 0;
+
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                soma += matriz[i, 1];
+            }
+
+            return soma;
+        }
+
+        static int CalcularSomaDiagonalPrincipal(int[,] matriz)
+        {
+            int soma = 0;
+
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                soma += matriz[i, i];
+            }
+
+            return soma;
+        }
+
+        static int CalcularSomaDiagonalSecundaria(int[,] matriz)
+        {
+            int soma = 0;
+            int tamanho = matriz.GetLength(0);
+
+            for (int i = 0; i < tamanho; i++)
+            {
+                soma += matriz[i, tamanho - i - 1];
+            }
+
+            return soma;
+        }
+
+        static int CalcularSomaTotal(int[,] matriz)
+        {
+            int soma = 0;
+
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    soma += matriz[i, j];
+                }
+            }
+
+            return soma;
         }
     }
 }
