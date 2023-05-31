@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,24 +10,47 @@ namespace Lista5Atp
     {
         public static void rodar()
         {
-            int tamVetor = 20;
-            int[] vetor = new int[tamVetor];
-            int menorValor = int.MaxValue;
-            int pos = 0;
+            Random random = new Random();
+            int[] numerosSorteados = new int[3];
+            for (int i = 0; i < 3; i++)
 
-            for (int i = 0; i < tamVetor; i++)
             {
-                Console.WriteLine("Digite um numero para a posição " + i + " do vetor");
-                vetor[i] = int.Parse(Console.ReadLine());
-
-                if (menorValor > vetor[i])
-                {
-                    menorValor = vetor[i];
-                    pos = i;
-                }
+                numerosSorteados[i] = random.Next(10, 51);
             }
 
-            Console.WriteLine("O menor valor do vetor é: " + menorValor + " e sua posição é: " + pos);
+            return numerosSorteados;
+        }
+
+        static void TentarAcertarNumero(int[] numerosSorteados)
+        {
+            while (true)
+            {
+                Console.Write("Digite um número entre 10 e 50: ");
+                int tentativa;
+                if (int.TryParse(Console.ReadLine(), out tentativa))
+                {
+                    if (Array.IndexOf(numerosSorteados, tentativa) != -1)
+                    {
+                        Console.WriteLine("Parabéns! Você acertou um número sorteado.");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tente novamente.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida. Tente novamente.");
+                }
+            }
+        }
+
+        static void Main()
+        {
+            int[] numerosSorteados = SortearNumeros();
+            Console.WriteLine("Números sorteados: " + string.Join(", ", numerosSorteados));
+            TentarAcertarNumero(numerosSorteados);
         }
     }
 }
