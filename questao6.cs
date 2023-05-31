@@ -8,7 +8,7 @@ namespace Lista5Atp
 {
     public static class questao6
     {
-        public static void rodar()
+        public static void rodar(string[] args)
         {
             int[] temperaturas = new int[31];
             int somaTemperaturas = 0;
