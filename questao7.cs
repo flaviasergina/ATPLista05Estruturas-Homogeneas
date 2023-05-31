@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,24 +10,49 @@ namespace Lista5Atp
     {
         public static void rodar()
         {
-            int tamVetor = 20;
-            int[] vetor = new int[tamVetor];
-            int menorValor = int.MaxValue;
-            int pos = 0;
+            int[] temperaturas = new int[31];
+            int somaTemperaturas = 0;
 
-            for (int i = 0; i < tamVetor; i++)
+            for (int i = 0; i < temperaturas.Length; i++)
             {
-                Console.WriteLine("Digite um numero para a posição " + i + " do vetor");
-                vetor[i] = int.Parse(Console.ReadLine());
+                Console.Write($"Digite a temperatura do dia {i + 1}: ");
+                temperaturas[i] = Convert.ToInt32(Console.ReadLine());
+                somaTemperaturas += temperaturas[i];
+            }
 
-                if (menorValor > vetor[i])
+            int menorTemperatura = temperaturas[0];
+            int maiorTemperatura = temperaturas[0];
+
+            foreach (int temperatura in temperaturas)
+            {
+                if (temperatura < menorTemperatura)
                 {
-                    menorValor = vetor[i];
-                    pos = i;
+                    menorTemperatura = temperatura;
+                }
+
+                if (temperatura > maiorTemperatura)
+                {
+                    maiorTemperatura = temperatura;
                 }
             }
 
-            Console.WriteLine("O menor valor do vetor é: " + menorValor + " e sua posição é: " + pos);
+            double temperaturaMedia = (double)somaTemperaturas / temperaturas.Length;
+            int diasInferioresMedia = 0;
+
+            foreach (int temperatura in temperaturas)
+            {
+                if (temperatura < temperaturaMedia)
+                {
+                    diasInferioresMedia++;
+                }
+            }
+
+            Console.WriteLine($"Menor temperatura: {menorTemperatura}°C");
+            Console.WriteLine($"Maior temperatura: {maiorTemperatura}°C");
+            Console.WriteLine($"Temperatura média: {temperaturaMedia:F2}°C");
+            Console.WriteLine($"Número de dias com temperatura inferior à média: {diasInferioresMedia}");
+
+            Console.ReadLine();
         }
     }
 }
