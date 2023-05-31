@@ -8,7 +8,7 @@ namespace Lista5Atp
 {
     public static class questao7
     {
-        public static void rodar()
+        public static void rodar(string[] args)
         {
             int[,] matriz = new int[5, 5];
 
